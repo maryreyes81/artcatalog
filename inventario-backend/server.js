@@ -104,7 +104,7 @@ app.delete("/items/:id", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0",() => {
   console.log(`API lista: http://localhost:${PORT}`);
   console.log(`Health:   http://localhost:${PORT}/health`);
   console.log(`Items:    http://localhost:${PORT}/items`);
