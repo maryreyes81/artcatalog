@@ -13,14 +13,14 @@ const adapter = new PrismaPg({
 
 const prisma = new PrismaClient({ adapter });
 
-app.use(cors());
+app.use(cors({ origin: true }));
 app.use(express.json());
 
 // Validación de entrada
 const ItemSchema = z.object({
   nombre: z.string().min(1, "nombre requerido"),
   categoria: z.string().min(1, "categoria requerida"),
- cantidad: z.coerce.number().int().min(0, "cantidad debe ser >= 0"),
+  cantidad: z.coerce.number().int().min(0, "cantidad debe ser >= 0"),
   unidad: z.string().min(1, "unidad requerida"),
   imagenUrl: z.string().url().optional().or(z.literal("")).optional(),
   notas: z.string().optional().or(z.literal("")).optional(),
@@ -108,4 +108,9 @@ app.listen(PORT, "0.0.0.0",() => {
   console.log(`API lista: http://localhost:${PORT}`);
   console.log(`Health:   http://localhost:${PORT}/health`);
   console.log(`Items:    http://localhost:${PORT}/items`);
+});
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ message: "Error interno" });
 });
