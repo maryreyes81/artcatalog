@@ -20,7 +20,7 @@ app.use(express.json());
 const ItemSchema = z.object({
   nombre: z.string().min(1, "nombre requerido"),
   categoria: z.string().min(1, "categoria requerida"),
-  cantidad: z.number().int().min(0, "cantidad debe ser >= 0"),
+ cantidad: z.coerce.number().int().min(0, "cantidad debe ser >= 0"),
   unidad: z.string().min(1, "unidad requerida"),
   imagenUrl: z.string().url().optional().or(z.literal("")).optional(),
   notas: z.string().optional().or(z.literal("")).optional(),
