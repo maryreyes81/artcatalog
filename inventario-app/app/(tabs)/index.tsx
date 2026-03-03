@@ -57,10 +57,17 @@ export default function Index() {
           keyExtractor={(it) => String(it.id)}
           style={{ marginTop: 16 }}
           onRefresh={loadItems}
-          refreshing={loading}
+            refreshing={loading}
+             ListEmptyComponent={
+          <Text style={{ marginTop: 24, textAlign: "center" }}>
+            No hay items todavía. Toca “+ Nuevo” para crear el primero.
+          </Text>
+        }
           renderItem={({ item }) => (
             <View style={{ padding: 12, borderWidth: 1, borderColor: "#ddd", borderRadius: 12, marginBottom: 12 }}>
-              <Pressable onPress={() => router.push(`/edit/${item.id}`)}>
+              <Pressable onPress={() => router.push(`/edit/${item.id}`)}
+               style={{ marginTop: 8 }}>
+                <Text style={{ fontWeight: "bold" }}>Editar</Text>
                 <Text style={{ fontWeight: "bold", fontSize: 16 }}>{item.nombre}</Text>
                 <Text>{item.categoria}</Text>
                 <Text>
